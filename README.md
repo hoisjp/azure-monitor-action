@@ -2,6 +2,8 @@
 [![build-test](https://github.com/hoisjp/azure-monitor-action/actions/workflows/test.yml/badge.svg)](https://github.com/hoisjp/azure-monitor-action/actions/workflows/test.yml)
 
 This Action lets you send custom log to Azure Monitor Log Analytics workspace from a GitHub workflow.
+
+![AzureMonitorActionConcept](./AzureMonitorAction.png)
 # Usage
 
 ## Prepare secrets
