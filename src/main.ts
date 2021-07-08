@@ -15,7 +15,7 @@ export async function run(): Promise<void> {
 
     // let jsonBody: string = JSON.stringify(yaml.load(core.getInput('log', {required: true})))
     const logMessage = core.getInput('log', {required: true})
-    const jsonBody = `{log: '${logMessage}'}`
+    const jsonBody = `${logMessage}`
 
     core.debug(`input json: ${jsonBody}`)
 

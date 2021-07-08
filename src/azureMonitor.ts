@@ -12,7 +12,7 @@ export function buildAuthorization(
   contentType: string,
   resource: string
 ): string {
-  const xHeaders = `x-ms-date: ${date}`
+  const xHeaders = `x-ms-date:${date}`
   const lf = '\n'
   const stringToHash = `${
     method +
