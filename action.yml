@@ -8,10 +8,9 @@ inputs:
   agent-key:
     required: true
     description: 'Agent key of your Log Analytics workspace'
-  log:
+  json-body:
     required: true
-    description: 'A list of log object'
-    default: '{}'
+    description: 'JSON string to post to Log Analytics'
 runs:
   using: 'node12'
   main: 'dist/index.js'

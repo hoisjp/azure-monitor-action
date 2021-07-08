@@ -132,15 +132,15 @@ Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.run = void 0;
 const core = __importStar(__nccwpck_require__(2186));
 const azureMonitor = __importStar(__nccwpck_require__(6194));
-// import * as yaml from 'js-yaml'
 function run() {
     return __awaiter(this, void 0, void 0, function* () {
         try {
             // through secret
             const workspaceId = core.getInput('workspace-id', { required: true });
             const agentKey = core.getInput('agent-key', { required: true });
-            const jsonBody = core.getInput('log', { required: true });
-            core.debug(`input json: ${jsonBody}`);
+            const jsonBody = core.getInput('json-body', { required: true });
+            core.debug(`input json-body:'${jsonBody}'`);
+            // TODO JSON validation
             yield azureMonitor.sendLogs(workspaceId, agentKey, jsonBody);
         }
         catch (error) {

@@ -1,6 +1,5 @@
 import * as core from '@actions/core'
 import * as azureMonitor from './azureMonitor'
-// import * as yaml from 'js-yaml'
 
 export async function run(): Promise<void> {
   try {
@@ -8,8 +7,9 @@ export async function run(): Promise<void> {
     const workspaceId: string = core.getInput('workspace-id', {required: true})
     const agentKey: string = core.getInput('agent-key', {required: true})
 
-    const jsonBody = core.getInput('log', {required: true})
-    core.debug(`input json: ${jsonBody}`)
+    const jsonBody = core.getInput('json-body', {required: true})
+    core.debug(`input json-body:'${jsonBody}'`)
+    // TODO JSON validation
 
     await azureMonitor.sendLogs(workspaceId, agentKey, jsonBody)
   } catch (error) {
