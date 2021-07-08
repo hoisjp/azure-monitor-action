@@ -23,5 +23,8 @@ describe('unit-tests', () => {
     process.env['INPUT_LA_WORKSPACE_ID'] = ''
     await run()
     expect(azureMonitor.sendLogs).toHaveBeenCalledTimes(0)
+    expect(outSpy).toHaveBeenCalledWith(
+      '::error::Input required and not supplied: workspace-id\n'
+    )
   })
 })
