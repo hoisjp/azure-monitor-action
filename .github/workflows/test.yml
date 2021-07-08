@@ -21,4 +21,6 @@ jobs:
       - uses: actions/checkout@v2
       - uses: ./
         with:
-          milliseconds: 1000
+          workspace-id: ${{ secrets.LA_WORKSPACE_ID }}
+          agent-key: ${{ secrets.LA_AGENT_KEY }}
+          log: 'Unit Test Finished.'

@@ -2,17 +2,33 @@
   <a href="https://github.com/actions/typescript-action/actions"><img alt="typescript-action status" src="https://github.com/actions/typescript-action/workflows/build-test/badge.svg"></a>
 </p>
 
-# Create a JavaScript Action using TypeScript
+# Azure Monitor Action
 
-Use this template to bootstrap the creation of a TypeScript action.:rocket:
+# Usage
 
-This template includes compilation support, tests, a validation workflow, publishing, and versioning guidance.  
+## Prepare secrets
+The action requires following 2 secrets. Set the secret value on your github repository, Settings > Secrets
+- `LA_WORKSPACE_ID` : get a value from Log Analytics workspace > Overview > Workspace ID
+- `LA_AGENT_KEY` : get a value from Log Analytics workspace > Agents management > Primary/Secondary key
 
-If you are new, there's also a simpler introduction.  See the [Hello World JavaScript Action](https://github.com/actions/hello-world-javascript-action)
+## Workflow
 
-## Create an action from this template
+```
+- name: Send Log to Azure Monitor
+  uses: hoisjp/azure-monitor-action@v1
+  with:
+    workspace-id: ${{ secrets.LA_WORKSPACE_ID }}
+    agent-key: ${{ secrets.LA_AGENT_KEY }}
+    log: 
+      message: "Unit Test Finished."
+      executionTime: 180
+```
 
-Click the `Use this Template` and provide the new repo details for your action
+## How to query Log Analytics
+
+TODO
+
+# Development
 
 ## Code in Main
 

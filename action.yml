@@ -1,11 +1,17 @@
-name: 'Your name here'
-description: 'Provide a description here'
-author: 'Your name or organization here'
+name: 'Azure Monitor Action'
+description: 'Send Azure Monitor custom logs from GitHub Actions'
+author: 'hoisjp'
 inputs:
-  milliseconds: # change this
+  workspace-id:
     required: true
-    description: 'input description here'
-    default: 'default value if applicable'
+    description: 'workspace ID of your Log Analytics workspace'
+  agent-key:
+    required: true
+    description: 'Agent key of your Log Analytics workspace'
+  logs:
+    required: true
+    description: 'A list of log object'
+    default: '{}'
 runs:
   using: 'node12'
   main: 'dist/index.js'
