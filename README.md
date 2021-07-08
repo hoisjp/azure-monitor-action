@@ -1,9 +1,7 @@
-<p align="center">
-  <a href="https://github.com/actions/typescript-action/actions"><img alt="typescript-action status" src="https://github.com/actions/typescript-action/workflows/build-test/badge.svg"></a>
-</p>
-
 # Azure Monitor Action
+[![build-test](https://github.com/hoisjp/azure-monitor-action/actions/workflows/test.yml/badge.svg)](https://github.com/hoisjp/azure-monitor-action/actions/workflows/test.yml)
 
+This Action lets you send custom log to Azure Monitor Log Analytics workspace from a GitHub workflow.
 # Usage
 
 ## Prepare secrets
@@ -19,14 +17,14 @@ The action requires following 2 secrets. Set the secret value on your github rep
   with:
     workspace-id: ${{ secrets.LA_WORKSPACE_ID }}
     agent-key: ${{ secrets.LA_AGENT_KEY }}
-    log: 
-      message: "Unit Test Finished."
-      executionTime: 180
+    json-body: '{message: "Unit Test Finished.", youCanGiveAnyFieldName: true}'
 ```
 
 ## How to query Log Analytics
-
-TODO
+You can query with this type name in KQL.
+```
+GitHubAction_CL
+```
 
 # Development
 
@@ -39,52 +37,47 @@ Install the dependencies
 $ npm install
 ```
 
-Build the typescript and package it for distribution
+Lint, test and build the typescript and package it for distribution
 ```bash
-$ npm run build && npm run package
+$ npm run all
 ```
 
 Run the tests :heavy_check_mark:  
 ```bash
 $ npm test
+> azure-monitor-action@0.0.1 test
+> jest
 
- PASS  ./index.test.js
-  ✓ throws invalid number (3ms)
-  ✓ wait 500 ms (504ms)
-  ✓ test runs (95ms)
-
+ PASS  __tests__/main.test.ts
 ...
+Test Suites: N passed, N total
+Tests:       N passed, N total
+Snapshots:   0 total
+Time:        10 s
+Ran all test suites.
 ```
 
-## Change action.yml
-
-The action.yml contains defines the inputs and output for your action.
-
-Update the action.yml with your name, description, inputs and outputs for your action.
-
-See the [documentation](https://help.github.com/en/articles/metadata-syntax-for-github-actions)
-
-## Change the Code
-
-Most toolkit and CI/CD operations involve async operations so the action is run in an async function.
-
-```javascript
-import * as core from '@actions/core';
-...
-
-async function run() {
-  try { 
-      ...
-  } 
-  catch (error) {
-    core.setFailed(error.message);
-  }
-}
-
-run()
+## Run on local with `act`
+Create `.secrets` for GitHub Secrets values with replacing your actual secrets.
 ```
+LA_WORKSPACE_ID=REPLACE_HERE
+LA_AGENT_KEY=REPLACE_HERE
+```
+And run with `act` command. See also https://github.com/nektos/act to install.
+```
+$ act -l
+ID     Stage  Name   
+build  0      build
+test   0      test
 
-See the [toolkit documentation](https://github.com/actions/toolkit/blob/master/README.md#packages) for the various packages.
+$ act -j build
+...
+[build-test/build]   ✅  Success - npm run all
+
+$ act -j test --secret-file .secrets
+...
+[build-test/test]   ✅  Success - Azure Monitor Action
+```
 
 ## Publish to a distribution branch
 
@@ -100,22 +93,4 @@ $ git push origin releases/v1
 
 Note: We recommend using the `--license` option for ncc, which will create a license file for all of the production node modules used in your project.
 
-Your action is now published! :rocket: 
-
-See the [versioning documentation](https://github.com/actions/toolkit/blob/master/docs/action-versioning.md)
-
-## Validate
-
-You can now validate the action by referencing `./` in a workflow in your repo (see [test.yml](.github/workflows/test.yml))
-
-```yaml
-uses: ./
-with:
-  milliseconds: 1000
-```
-
-See the [actions tab](https://github.com/actions/typescript-action/actions) for runs of this action! :rocket:
-
-## Usage:
-
-After testing you can [create a v1 tag](https://github.com/actions/toolkit/blob/master/docs/action-versioning.md) to reference the stable and latest V1 action
+Your action is now published! :rocket: See the [versioning documentation](https://github.com/actions/toolkit/blob/master/docs/action-versioning.md)
