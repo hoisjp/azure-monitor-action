@@ -138,13 +138,8 @@ function run() {
         try {
             // through secret
             const workspaceId = core.getInput('workspace-id', { required: true });
-            if (!workspaceId) {
-                throw new Error('Not all values are present in the creds object. Ensure clientId, clientSecret and tenantId are supplied.');
-            }
             const agentKey = core.getInput('agent-key', { required: true });
-            // let jsonBody: string = JSON.stringify(yaml.load(core.getInput('log', {required: true})))
-            const logMessage = core.getInput('log', { required: true });
-            const jsonBody = `${logMessage}`;
+            const jsonBody = core.getInput('log', { required: true });
             core.debug(`input json: ${jsonBody}`);
             yield azureMonitor.sendLogs(workspaceId, agentKey, jsonBody);
         }
