@@ -1,28 +1,27 @@
-import {wait} from '../src/wait'
+import * as azureMonitor from '../src/azureMonitor'
 import * as process from 'process'
 import * as cp from 'child_process'
 import * as path from 'path'
+import * as core from '@actions/core'
+import {run} from '../src/main'
+jest.mock('../src/azureMonitor')
 
-test('throws invalid number', async () => {
-  const input = parseInt('foo', 10)
-  await expect(wait(input)).rejects.toThrow('milliseconds not a number')
-})
+describe('unit-tests', () => {
+  let outSpy: jest.SpyInstance
 
-test('wait 500 ms', async () => {
-  const start = new Date()
-  await wait(500)
-  const end = new Date()
-  var delta = Math.abs(end.getTime() - start.getTime())
-  expect(delta).toBeGreaterThan(450)
-})
+  beforeEach(() => {
+    process.env['INPUT_LA_WORKSPACE_ID'] = 'fooBar'
+    outSpy = jest.spyOn(process.stdout, 'write')
+  })
 
-// shows how the runner will run a javascript action with env / stdout protocol
-test('test runs', () => {
-  process.env['INPUT_MILLISECONDS'] = '500'
-  const np = process.execPath
-  const ip = path.join(__dirname, '..', 'lib', 'main.js')
-  const options: cp.ExecFileSyncOptions = {
-    env: process.env
-  }
-  console.log(cp.execFileSync(np, [ip], options).toString())
+  afterEach(() => {
+    outSpy.mockClear()
+    jest.clearAllMocks()
+  })
+
+  test('workspace-id input param must be set', async () => {
+    process.env['INPUT_LA_WORKSPACE_ID'] = ''
+    await run()
+    expect(azureMonitor.sendLogs).toHaveBeenCalledTimes(0)
+  })
 })
