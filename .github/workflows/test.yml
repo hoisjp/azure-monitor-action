@@ -19,8 +19,9 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
-      - uses: ./
+      - name: Azure Monitor Action
+        uses: ./
         with:
           workspace-id: ${{ secrets.LA_WORKSPACE_ID }}
           agent-key: ${{ secrets.LA_AGENT_KEY }}
-          log: 'Unit Test Finished.'
+          log: '{message: "Unit Test Finished."}'

@@ -8,7 +8,7 @@ inputs:
   agent-key:
     required: true
     description: 'Agent key of your Log Analytics workspace'
-  logs:
+  log:
     required: true
     description: 'A list of log object'
     default: '{}'
