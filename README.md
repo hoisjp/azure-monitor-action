@@ -15,7 +15,7 @@ The action requires following 2 secrets. Set the secret value on your github rep
 
 ```
 - name: Send Log to Azure Monitor
-  uses: hoisjp/azure-monitor-action@v1
+  uses: hoisjp/azure-monitor-action@v0.1
   with:
     workspace-id: ${{ secrets.LA_WORKSPACE_ID }}
     agent-key: ${{ secrets.LA_AGENT_KEY }}
