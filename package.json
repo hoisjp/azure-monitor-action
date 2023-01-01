@@ -34,7 +34,7 @@
     "@types/crypto-js": "^4.0.2",
     "@types/jest": "^26.0.24",
     "@types/js-yaml": "^4.0.2",
-    "@types/node": "^16.0.1",
+    "@types/node": "^18.11.18",
     "@typescript-eslint/parser": "^4.8.1",
     "@vercel/ncc": "^0.28.6",
     "eslint": "^7.17.0",
